@@ -6,7 +6,7 @@ every change, see the Git log..
 
 Latest
 ------
-* tbd
+* Minor: Added Cmake Support.
 
 1.0.0
 -----
