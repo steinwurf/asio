@@ -6,6 +6,10 @@ every change, see the Git log..
 
 Latest
 ------
+* tbd
+
+2.0.0
+-----
 * Major: Updated dependencies to use waf-tools 5.
 
 1.1.0
