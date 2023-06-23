@@ -6,7 +6,7 @@ every change, see the Git log..
 
 Latest
 ------
-* tbd
+* Patch: Added libpthread to the list of libraries to link against.
 
 2.0.0
 -----
