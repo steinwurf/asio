@@ -5,8 +5,11 @@ APPNAME = "asio"
 VERSION = "2.0.0"
 
 
-def build(bld):
+def configure(conf):
+    conf.set_cxx_std(11)
 
+
+def build(bld):
     # Path to the source repo
     directory = bld.dependency_node("asio-source")
 
@@ -15,5 +18,4 @@ def build(bld):
     bld(name="asio_includes", export_includes=[includes], use=["ASIO"])
 
     if bld.is_toplevel():
-
         bld.recurse("examples")
