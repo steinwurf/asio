@@ -1,5 +1,9 @@
+// Copyright (c) 2023 Steinwurf ApS
+// All Rights Reserved
+
 #include <asio/version.hpp>
 
+#include <asio.hpp>
 #include <iostream>
 
 int main()
