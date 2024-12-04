@@ -20,26 +20,7 @@ jobs:
         config:
           - CXX: g++
             name: GCC Latest
-            cxxflags:
-            env:
-            runner: ubuntu-current
-          - name: Clang Latest
-            CXX: clang++
-            cxxflags:
-            env:
-            runner: ubuntu-current
-          - name: GCC Old
-            CXX: g++
-            cxxflags:
-            env:
-            runner: ubuntu-old
-          - name: Clang Old
-            CXX: clang++
-            cxxflags:
-            env:
-            runner: ubuntu-old
-    runs-on:
-      - self-hosted
+            cxx  - self-hosted
       - vm
       - ${{ matrix.config.runner }}
     name: ${{ matrix.config.name }}
@@ -56,7 +37,7 @@ jobs:
         with:
           max_attempts: 3
           timeout_minutes: 15
-          command: python3 waf configure --git_protocol=git@ ${{ env.EXTRA_RESOLVE_OPTIONS }} --ninja
+          command: python3 waf configure --git_protocol=git@ ${{ env.EXTRA_RESOLVE_OPTIONS }}
       - name: Waf Build
         run: |
           echo "::add-matcher::.github/gcc-problem-matcher.json"
