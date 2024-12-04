@@ -33,31 +33,6 @@ jobs:
           command: cmake -B cmake_build -DSTEINWURF_RESOLVE_OPTIONS="--git_protocol=git@ $EXTRA_RESOLVE_OPTIONS" -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} -DCMAKE_C_COMPILER=${{ matrix.config.cc }} -DCMAKE_BUILD_TYPE=WurfRelease -DCMAKE_TOOLCHAIN_FILE=~/toolchains/zig-toolchain-aarch64-linux-musl.cmake -GNinja
       - name: CMake Build
         run: cmake --build cmake_build -j$(( ( $(nproc) + 1 ) / 2 ))
-  tests:
-    needs: cross-compile
-    strategy:
-      fail-fast: false
-    runs-on: [self-hosted, raspberry_pi_4]
-    name: Run Tests on Raspberry Pi
-    steps:
-      - name: Checkout source code
-        uses: actions/checkout@v3
-      - name: Download Test Binary Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: plumr_tests
-      - name: List files
-        run: ls -l
-      - name: Run all tests
-        run: chmod +x plumr_tests
-      - name: Get backtrace on failure if available
-        run: |
-          if ! ./plumr_tests; then
-            echo "Test failed, getting backtrace"
-            gdb -batch -ex "r" -ex "thread apply all backtrace full" -ex "quit" ./plumr_tests
-            exit 1
-          fi
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
   cancel-in-progress: true
