@@ -1,4 +1,4 @@
-name: MacOS C++ make-specs
+name: Valgrind
 "on":
   workflow_dispatch:
     inputs:
@@ -12,36 +12,28 @@ name: MacOS C++ make-specs
       - master
   pull_request:
 jobs:
-  MacOS-mkspecs:
+  valgrind:
     timeout-minutes: 45
-    strategy:
-      fail-fast: false
-      matrix:
-        config:
-          - arch: ARM64
-            name: Apple (ARM)
-    runs-on: [self-hosted, macOS, "${{ matrix.config.arch }}", builder]
-    name: ${{ matrix.config.name }}
+    name: Valgrind 3.19.0
+    runs-on: [self-hosted, vm, ubuntu-current]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Clang Version
-        run: clang --version
       - name: Configure
         env:
-          GIT_SSH_COMMAND: "ssh"
           EXTRA_RESOLVE_OPTIONS: ${{ inputs.extra_resolve_options }}
         uses: nick-fields/retry@v2
         with:
           max_attempts: 3
           timeout_minutes: 15
-          command: python3 waf configure --git_protocol=git@ ${{ env.EXTRA_RESOLVE_OPTIONS }}
+          command: python3 waf configure --git_protocol=git@ ${{ env.EXTRA_RESOLVE_OPTIONS }} --ninja
       - name: Build
         run: |
           echo "::add-matcher::.github/gcc-problem-matcher.json"
           python3 waf
-      - name: Test
-        run: ./build_current/cmake_default/plumr_tests
+      - name: Valgrind Test
+        run: valgrind --suppressions=valgrind_suppressions.txt --leak-check=full --error-exitcode=1 build_current/cmake_default/plumr_tests --gtest_filter="-test_throughput_traffic_source.system_time:test_memory_pool.async_alloc_fail"
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
   cancel-in-progress: true
