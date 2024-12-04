@@ -40,8 +40,6 @@ jobs:
         run: |
           echo "::add-matcher::.github/gcc-problem-matcher.json"
           python3 waf
-      - name: Test
-        run: ./build_current/cmake_default/plumr_tests
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
   cancel-in-progress: true

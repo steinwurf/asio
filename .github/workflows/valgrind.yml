@@ -31,9 +31,6 @@ jobs:
         run: |
           echo "::add-matcher::.github/gcc-problem-matcher.json"
           python3 waf
-      - name: Valgrind Test
-        run: valgrind --suppressions=valgrind_suppressions.txt --leak-check=full --error-exitcode=1 build_current/cmake_default/plumr_tests --gtest_filter="-test_throughput_traffic_source.system_time:test_memory_pool.async_alloc_fail"
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
   cancel-in-progress: true

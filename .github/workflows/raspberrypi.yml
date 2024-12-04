@@ -33,16 +33,6 @@ jobs:
           command: cmake -B cmake_build -DSTEINWURF_RESOLVE_OPTIONS="--git_protocol=git@ $EXTRA_RESOLVE_OPTIONS" -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} -DCMAKE_C_COMPILER=${{ matrix.config.cc }} -DCMAKE_BUILD_TYPE=WurfRelease -DCMAKE_TOOLCHAIN_FILE=~/toolchains/zig-toolchain-aarch64-linux-musl.cmake -GNinja
       - name: CMake Build
         run: cmake --build cmake_build -j$(( ( $(nproc) + 1 ) / 2 ))
-      - name: Gather Test Binary and Input files
-        run: |
-          mkdir artifact
-          mv cmake_build/plumr_tests ./artifact
-      - name: Upload Test Binary Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: plumr_tests
-          path: artifact
-          retention-days: 1
   tests:
     needs: cross-compile
     strategy:

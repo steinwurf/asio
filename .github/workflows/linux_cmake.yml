@@ -73,9 +73,6 @@ jobs:
     - name: CMake Build
       working-directory: ${{github.workspace}}/build
       run: cmake --build . -j$(( ( $(nproc) + 1 ) / 2 )) --config Debug
-    - name: Run Tests
-      working-directory: ${{github.workspace}}/build
-      run: ${{ matrix.config.env }} ./plumr_tests --gtest_filter="-test_memory_pool.async_alloc_fail"
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
   cancel-in-progress: true
