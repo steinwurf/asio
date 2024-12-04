@@ -12,7 +12,7 @@
         "name": "asio-source",
         "resolver": "git",
         "method": "checkout",
-        "checkout": "asio-1-24-0",
+        "checkout": "asio-1-30-2",
         "sources": [
             "github.com/chriskohlhoff/asio.git"
         ]
