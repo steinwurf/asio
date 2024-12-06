@@ -6,6 +6,10 @@ every change, see the Git log..
 
 Latest
 ------
+* tbd
+
+3.0.0
+-----
 * Major: Bump asio version 
 
 2.0.1
