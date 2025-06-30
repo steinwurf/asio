@@ -3,6 +3,9 @@ project(asio)
 
 find_package(Python COMPONENTS Interpreter)
 
+# Include common CMake settings
+include("${STEINWURF_RESOLVE}/toolchains/common_settings.cmake")
+
 # Use waf to resolve dependencies
 if(NOT DEFINED STEINWURF_RESOLVE)
   message(STATUS "Resolving dependencies...")
@@ -16,7 +19,6 @@ if(NOT DEFINED STEINWURF_RESOLVE)
   endif()
 
   set(STEINWURF_RESOLVE "${CMAKE_CURRENT_SOURCE_DIR}/resolve_symlinks")
-  set(STEINWURF_TOP_NAME asio)
 endif()
 
 # Define library
