@@ -1,0 +1,14 @@
+{
+    "asio-source": {
+        "commit_id": "12e0ce9e0500bf0f247dbd1ae894272656456079",
+        "resolver_info": "asio-1-30-2",
+        "sha1": "92335e88366200b45048869bb28668e46f01192b",
+        "source": "github.com/chriskohlhoff/asio.git"
+    },
+    "toolchains": {
+        "commit_id": "f7b9747ab22d7dbbeb23c9f863e735bac883566e",
+        "resolver_info": "1.0.3",
+        "sha1": "443cb23b0570dffd39283d8679ec393ed809302f",
+        "source": "github.com/steinwurf/cmake-toolchains.git"
+    }
+}

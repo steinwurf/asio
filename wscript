@@ -5,23 +5,21 @@ APPNAME = "asio"
 VERSION = "3.0.0"
 
 
-def configure(conf):
-    conf.set_cxx_std(11)
-
-    if conf.is_mkspec_platform("linux") and not conf.env["LIB_PTHREAD"]:
-        conf.check_cxx(lib="pthread")
+def options(ctx):
+    ctx.load("cmake")
 
 
-def build(bld):
-    use_flags = ["ASIO"]
-    if bld.is_mkspec_platform("linux"):
-        use_flags += ["PTHREAD"]
-    # Path to the source repo
-    directory = bld.dependency_node("asio-source")
+def configure(ctx):
+    ctx.load("cmake")
+    
+    if ctx.is_toplevel():
+        ctx.cmake_configure()
 
-    includes = directory.find_node("asio").find_node("include")
 
-    bld(name="asio_includes", export_includes=[includes], use=use_flags)
+def build(ctx):
+    ctx.load("cmake")
 
-    if bld.is_toplevel():
-        bld.recurse("examples")
+    if ctx.is_toplevel():
+        # Because this project has not test remove the "--no-tests=error" flag form the build command
+        ctx.env.CMAKE_TEST_ARGS.remove("--no-tests=error")
+        ctx.cmake_build()
