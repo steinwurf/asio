@@ -6,7 +6,7 @@ every change, see the Git log..
 
 Latest
 ------
-* tbd
+* Patch: Added example as test in CMakeList. 
 
 4.0.0
 -----
