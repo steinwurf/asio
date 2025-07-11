@@ -46,6 +46,9 @@ install(
 # Is top level project?
 if(${CMAKE_PROJECT_NAME} STREQUAL ${PROJECT_NAME})
   # Build executables
+  #add test
+  enable_testing()
   add_executable(hello_asio examples/hello_asio.cpp)
   target_link_libraries(hello_asio asio)
+  add_test(hello_asio  hello_asio)
 endif()
